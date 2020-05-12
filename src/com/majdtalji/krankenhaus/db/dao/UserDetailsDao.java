@@ -6,6 +6,7 @@ import com.majdtalji.krankenhaus.db.vo.UsersVo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -100,7 +101,7 @@ public class UserDetailsDao extends com.majdtalji.krankenhaus.db.dao.Dao impleme
             con.commit();
             count = 1;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             con.rollback();
         } finally {
             ps.close();
@@ -131,7 +132,7 @@ public class UserDetailsDao extends com.majdtalji.krankenhaus.db.dao.Dao impleme
             con.commit();
             count = 1;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             con.rollback();
         } finally {
             ps.close();
@@ -183,7 +184,7 @@ public class UserDetailsDao extends com.majdtalji.krankenhaus.db.dao.Dao impleme
 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
         } finally {
             rs.close();
             ps.close();

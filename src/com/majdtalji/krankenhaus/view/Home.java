@@ -2,9 +2,10 @@ package com.majdtalji.krankenhaus.view;
 
 import com.majdtalji.krankenhaus.validation.ScreenBounds;
 import com.majdtalji.krankenhaus.db.vo.UsersVo;
+import com.majdtalji.krankenhaus.validation.Validation;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -20,7 +21,6 @@ import javafx.stage.Stage;
 public class Home extends Stage implements ScreenBounds {
 
     public static UsersVo usersVo;
-    private Label jLabel1;
     private Menu jMenu1;
     private Menu jMenu2;
     private MenuBar jMenuBar1;
@@ -42,7 +42,11 @@ public class Home extends Stage implements ScreenBounds {
         mAdmin = new Menu("Admin");
         jMenuItem1 = new MenuItem("Add new User");
         jMenuItem1.setOnAction((event) -> {
-            jMenuItem1ActionPerformed(event);
+            try {
+                jMenuItem1ActionPerformed(event);
+            } catch (Exception ex) {
+                Validation.specialAlertShow("Error", "Please enter valid data.", AlertType.ERROR);
+            }
         });
         mAdmin.getItems().add(jMenuItem1);
         jMenuBar1.getMenus().add(mAdmin);
@@ -58,7 +62,11 @@ public class Home extends Stage implements ScreenBounds {
         mReceptionist = new Menu("Receptionist");
         jMenuItem2 = new MenuItem("Patient Info");
         jMenuItem2.setOnAction((event) -> {
-            jMenuItem2ActionPerformed(event);
+            try {
+                jMenuItem2ActionPerformed(event);
+            } catch (Exception ex) {
+                Validation.specialAlertShow("Error", "Please enter valid data.", AlertType.ERROR);
+            }
         });
         mReceptionist.getItems().add(jMenuItem2);
         jMenuBar1.getMenus().add(mReceptionist);
@@ -90,10 +98,10 @@ public class Home extends Stage implements ScreenBounds {
         VBox root = new VBox();
 
         Image image = new Image("images/black-wallpaper.jpg", WIDTH, HEIGHT, true, true);
-        ImageView imageView = new ImageView(image);        
+        ImageView imageView = new ImageView(image);
         imageView.fitHeightProperty().bind(this.heightProperty());
         imageView.fitWidthProperty().bind(this.widthProperty());
-        
+
         root.getChildren().add(jMenuBar1);
         root.getChildren().add(imageView);
 
@@ -142,14 +150,14 @@ public class Home extends Stage implements ScreenBounds {
         }
     }
 
-    private void jMenuItem1ActionPerformed(ActionEvent event) {
+    private void jMenuItem1ActionPerformed(ActionEvent event) throws Exception {
 
         UsersView usersView = new UsersView();
         usersView.setVisible(true);
 
     }
 
-    private void jMenuItem2ActionPerformed(ActionEvent event) {
+    private void jMenuItem2ActionPerformed(ActionEvent event) throws Exception {
 
         PatientInfoView patientInfoView = new PatientInfoView();
         patientInfoView.setVisible(true);

@@ -5,6 +5,7 @@ import com.majdtalji.krankenhaus.db.vo.UsersVo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class PatientInfoDao extends Dao implements DaoList<PatientInfoVo> {
             ps.setInt(6, piv.getUsersVo().getId());
             count = ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
         } finally {
             ps.close();
             closeConnection(con);
@@ -78,7 +79,7 @@ public class PatientInfoDao extends Dao implements DaoList<PatientInfoVo> {
             ps.setInt(6, piv.getId());
             count = ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             con.rollback();
         } finally {
             ps.close();
@@ -101,7 +102,7 @@ public class PatientInfoDao extends Dao implements DaoList<PatientInfoVo> {
             ps.setInt(1, piv.getId());
             count = ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
         } finally {
             ps.close();
             closeConnection(con);

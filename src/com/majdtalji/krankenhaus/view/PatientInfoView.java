@@ -8,7 +8,6 @@ import com.majdtalji.krankenhaus.validation.Validation;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -43,7 +42,7 @@ public class PatientInfoView extends Dialog {
     private TextField txtMobile;
     private TextField txtUserId;
 
-    public PatientInfoView() {
+    public PatientInfoView() throws Exception {
 
         jLabel1 = new Label("ID");
         jLabel2 = new Label("First name");
@@ -102,9 +101,13 @@ public class PatientInfoView extends Dialog {
         GridPane.setHgrow(btnGetMessage, Priority.ALWAYS);
 
         btnNew.setOnAction((event) -> {
-            btnNewActionPerformed(event);
+            try {
+                btnNewActionPerformed(event);
+            } catch (Exception ex) {
+                Validation.specialAlertShow("Error", ex.getMessage(), AlertType.ERROR);
+            }
         });
-        
+
         btnAdd.setOnAction((event) -> {
             btnAddActionPerformed(event);
         });
@@ -319,11 +322,11 @@ public class PatientInfoView extends Dialog {
 
         MessageView messageView = new MessageView();
         messageView.setVisible(true);
-        
+
     }
 
-    private void reset() {
-        
+    private void reset() throws Exception {
+
         txtId.setText("");
         txtId.setText("" + Dao.getId("patient_info"));
         txtFirstName.setText("");
@@ -331,10 +334,10 @@ public class PatientInfoView extends Dialog {
         txtMobile.setText("");
         txtEmail.setText("");
         txtUserId.setText("");
-        
+
     }
 
-    private void btnNewActionPerformed(ActionEvent event) {
+    private void btnNewActionPerformed(ActionEvent event) throws Exception {
         reset();
     }
 

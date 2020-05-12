@@ -7,6 +7,7 @@ import java.sql.Date;
  * @author Majd Talji <en.majd.talji@gmail.com>
  */
 public class MessageVo {
+
     // MESSAGES  ID MESSAGE_BODY	MESSAGE_DATE	FROM_USER	TO_USER	PATIENT_ID
     private int id;
     private String messegeBody;
@@ -63,4 +64,3 @@ public class MessageVo {
         this.patientInfoVo = patientInfoVo;
     }
 }
-

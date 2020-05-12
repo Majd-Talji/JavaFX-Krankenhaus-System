@@ -19,5 +19,5 @@ public interface DaoList<T> {
     public T getData(T t) throws Exception;
 
     public T getDataById(int id) throws Exception;
-    
+
 }

@@ -1,16 +1,11 @@
 package com.majdtalji.krankenhaus.db.dao;
 
-import com.majdtalji.krankenhaus.db.vo.MessageVo;
-import com.majdtalji.krankenhaus.db.vo.PatientInfoVo;
-import com.majdtalji.krankenhaus.db.vo.UsersVo;
 import com.majdtalji.krankenhaus.validation.Validation;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 
 /**
@@ -38,7 +33,7 @@ public class Dao {
                 return con;
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Validation.specialAlertShow("Error", "Can not Database connection.", Alert.AlertType.ERROR);
         }
         return null;
@@ -51,7 +46,7 @@ public class Dao {
         }
     }
 
-    public static int getId(String tableName) {
+    public static int getId(String tableName) throws Exception {
 
         Connection con = null;
         PreparedStatement ps = null;
@@ -71,15 +66,12 @@ public class Dao {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Validation.specialAlertShow("Error", "Can not Database get ID.", Alert.AlertType.ERROR);
         } finally {
-            try {
-                rs.close();
-                ps.close();
-                database.closeConnection(con);
-            } catch (Exception ex) {
-            }
+            rs.close();
+            ps.close();
+            database.closeConnection(con);
         }
         return id;
 

@@ -7,6 +7,7 @@ import com.majdtalji.krankenhaus.validation.Validation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.control.Alert;
 
@@ -119,7 +120,7 @@ public class MessageDao extends Dao implements DaoList<MessageVo> {
                 messageVo.setPatientInfoVo(patientInfoVo);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
         } finally {
             rs.close();
             ps.close();

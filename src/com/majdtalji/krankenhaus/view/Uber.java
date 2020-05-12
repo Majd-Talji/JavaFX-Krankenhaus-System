@@ -1,10 +1,11 @@
 package com.majdtalji.krankenhaus.view;
 
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Hyperlink;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
 /**
  *
@@ -112,7 +112,7 @@ public class Uber extends Dialog {
             try {
                 Desktop desktop = Desktop.getDesktop();
                 desktop.browse(new URI(pathFacebook.getText()));
-            } catch (Exception ex) {
+            } catch (IOException | URISyntaxException ex) {
             }
         });
 

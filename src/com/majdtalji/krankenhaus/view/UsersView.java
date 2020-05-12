@@ -6,20 +6,17 @@ import com.majdtalji.krankenhaus.db.dao.UsersDao;
 import com.majdtalji.krankenhaus.db.type.UsersType;
 import com.majdtalji.krankenhaus.db.vo.UserDetailsVo;
 import com.majdtalji.krankenhaus.db.vo.UsersVo;
-import static com.majdtalji.krankenhaus.validation.ScreenBounds.HEIGHT;
-import static com.majdtalji.krankenhaus.validation.ScreenBounds.WIDTH;
 import com.majdtalji.krankenhaus.validation.Validation;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import javafx.beans.value.ObservableValue;
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -75,7 +72,7 @@ public class UsersView extends Dialog {
 
     public static byte[] imageByte;
 
-    public UsersView() {
+    public UsersView() throws Exception {
 
         jLabel1 = new Label("ID");
         jLabel2 = new Label("User name");
@@ -101,7 +98,7 @@ public class UsersView extends Dialog {
         btnChooseImage = new Button("Choose Image");
         btnSearch = new Button("Search");
         lblImage = new ImageView();
-        
+
         lblImage.setFitWidth(130);
         lblImage.setFitHeight(145);
 
@@ -198,7 +195,7 @@ public class UsersView extends Dialog {
         }
     }
 
-    protected void reset() {
+    protected void reset() throws Exception {
         txtId.setText("");
         txtId.setText("" + Dao.getId("users"));
         txtUserName.setText("");
@@ -319,7 +316,7 @@ public class UsersView extends Dialog {
         int id = Integer.valueOf(txtId.getText());
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
-        UsersType usersType = UsersType.getUsersTypeByType(cUserType.getSelectionModel().getSelectedItem().toString());
+        UsersType usersType = UsersType.getUsersTypeByType(cUserType.getSelectionModel().getSelectedItem());
         UsersVo usersVo = new UsersVo();
         usersVo.setId(id);
         usersVo.setUserName(userName);
@@ -385,7 +382,7 @@ public class UsersView extends Dialog {
                 }
                 imageByte = baos.toByteArray();
 
-            } catch (Exception e) {
+            } catch (IOException e) {
                 Validation.specialAlertShow("Error", "Failed to add Image", AlertType.ERROR);
             }
         }
@@ -401,7 +398,7 @@ public class UsersView extends Dialog {
             Validation.specialAlertShow("Waring", "Please enter valid ID.", AlertType.WARNING);
             return;
         }
-        
+
         int id = Integer.valueOf(txtId.getText());
         try {
             UserDetailsVo userDetailsVo = UserDetailsDao.getInstance().getDataById(id);
